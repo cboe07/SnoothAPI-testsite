@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+	<style type="text/css">
+		
+
+
+	</style>
+
+
+
+
+</head>
+<body>
+
+<div class="container">
+	<div class="wine-menu col-sm-10 col-sm-offset-1">
+		<div class="left-menu col-sm-4">
+			<h4><strong>Find Wine Suggestions</strong></h4><br/>
+			<form action="/beverage">
+				<fieldset>
+					<h5>What color wine do you prefer?</h5>
+					<select>
+						<option>Red</option>
+						<option>White</option>
+						<option>Rose</option>          <!-- selected="selected" -->
+						<option>Amber</option>
+						<option>Clear</option>
+					</select>
+					<button type="submit">Find wines</button>
+				</fieldset>
+			</form>
+			<br/>
+			OR
+			<br/>
+			<br/>
+
+			<h5>Search by your favorite type of wine (i.e "Cabernet", "Pinot Noir)</h5>
+			<form id="search-form" action="/recipes" method="post">
+				<input type="text" name="searchString"/>
+				<button type="submit">Search</button>
+			</form>
+		</div>
+		<div class="right-menu col-sm-4 col-sm-offset-2">
+			<h4><strong>Find Recipe Pairings</strong></h4><br/>
+			<form id="search-form" action="/recipes" method="post">
+				<input type="text" name="searchString"/>
+				<button type="submit">Search</button>
+			</form>
+		</div>
+
+
+
+
+	</div>
+</div>
+
+
+
+</body>
+</html>
