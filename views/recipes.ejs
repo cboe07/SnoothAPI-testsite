@@ -9,7 +9,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-	<script type="text/javascript" src="javascripts/scripts.js"></script>
+	<!-- <script type="text/javascript" src="javascripts/scripts.js"></script> -->
 
 </head>
 <body>
@@ -19,25 +19,28 @@
 	<div class="container">
 		<div class="row text-center">
 			<div class="header text-danger col-sm-12 text-center">
-				<h1>Best Recipes to Pair with <%= wineName%> </h1>		
+				<h1><strong>Best Recipes Paired With </strong><em><%= wineName %> </em></h1>	
+				<br/>
 			</div>
 
 			<div class="col-sm-12">
 				
+			<div class="col-sm-4">
+				<div><strong><%= recipeName %></strong></div><br/>
+				<div><a href='<%= recipeLink %>''><img src='<%= recipeImage %>'/></a></div>
+				<br/>
+			</div>
+			
+			<div class="col-sm-4">
+				<div><strong><%= recipeName1 %></strong></div><br/>
+				<div><a href='<%= recipeLink1 %>''><img src='<%= recipeImage1 %>'/></a></div>
+				<br/>
+			</div>
 
-				<div><strong>Recipe: </strong><%= wineName %></div><br/>
-
-				<div><a href='<%= wineRecipeLink %>''><img src='<%= wineImage %>'/></a></div>
-
-	
-				<div><strong>Recipe: </strong><%= wineName %></div><br/>
-
-				<div><a href='<%= wineRecipeLink1 %>''><img src='<%= wineImage1 %>'/></a></div>
-
-				<div><strong>Recipe: </strong><%= wineName %></div><br/>
-
-				<div><a href='<%= wineRecipeLink2 %>''><img src='<%= wineImage2 %>'/></a></div>
-
+			<div class="col-sm-4">
+				<div><strong><%= recipeName2 %></strong></div><br/>
+				<div><a href='<%= recipeLink2 %>''><img src='<%= recipeImage2 %>'/></a></div>
+			</div>
 				
 			</div>
 		</div>

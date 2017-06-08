@@ -81,6 +81,39 @@ const ip = '&ip=66.28.234.115';
 // 	});
 
 // });
+'http://api.snooth.com/wines/?akey=8jncs6kpdwlsv2gkd24zqiyadfzhi0b07ybsajsldrssfgpg&ip=75.63.122.172&color=red'
+
+router.post('/color', (req,res)=>{
+	// req.body is availbale because of the body-parser module
+	// req.body is where POSTED data will live
+	console.log(req.body);	
+	var wineColor = (req.body.searchColor)
+	// console.log(wineColor)
+	var snoothColorUrl = snoothBaseUrl + wineKey + ip + '&color='+ wineColor + '&mr=4&mp=1';
+	// console.log(snoothColorUrl)
+	// res.json(req.body);
+	request.get(snoothColorUrl,(error, response, colorData)=>{
+		var colorFormatted = JSON.parse(colorData);
+		console.log(colorFormatted);
+		// res.json(colorFormatted.wines[0].image)
+		// res.json(colorFormatted.wines[0].name)
+		// res.json(colorFormatted.wines[0].price)
+		// res.json(colorFormatted.wines[0].rank)
+
+
+		res.render('color', { 
+			wineImage : colorFormatted.wines[0].image,
+			wineName : colorFormatted.wines[0].name,
+			winePrice : colorFormatted.wines[0].price,
+			wineRank : colorFormatted.wines[0].rank,
+
+		});
+	});
+
+});
+
+
+
 
 router.post('/recipes', (req,res)=>{
 	// req.body is availbale because of the body-parser module
@@ -89,11 +122,11 @@ router.post('/recipes', (req,res)=>{
 	var wineName = (req.body.searchString)
 	var wineId = wineName.replace(" ","-");
 	// console.log(wineId)
-	var snoothRecipeUrl = snoothBaseUrl2 + wineKey + ip + '&id='+wineId + '&food=1';
+	var snoothRecipeUrl = snoothBaseUrl2 + wineKey + ip + '&id='+ wineId + '&food=1';
 	// console.log(snoothRecipeUrl)
 	// res.json(req.body);
-	request.get(snoothRecipeUrl,(error, response, wineData)=>{
-		var wineFormatted = JSON.parse(wineData);
+	request.get(snoothRecipeUrl,(error, response, recipeData)=>{
+		var recipeFormatted = JSON.parse(recipeData);
 		// console.log(wineFormatted)
 		// res.json(wineFormatted.wines[0].recipes[0]);
 		// var wineData = JSON.parse(wineData);
@@ -104,18 +137,21 @@ router.post('/recipes', (req,res)=>{
 		// console.log(wineFormatted.wines[0].recipes[0].name);
 		// console.log(wineFormatted.wines[0].recipes[0].image);
 		// console.log(wineFormatted.wines[0].recipes[0].link);
+		console.log(wineName);
 		res.render('recipes', { 
-			wineName: wineFormatted.wines[0].recipes[0].name,
-			wineImage: wineFormatted.wines[0].recipes[0].image,
-			wineRecipeLink: wineFormatted.wines[0].recipes[0].link,
+			wineName :req.body.searchString,
 
-			wineName1: wineFormatted.wines[0].recipes[1].name,
-			wineImage1: wineFormatted.wines[0].recipes[1].image,
-			wineRecipeLink1: wineFormatted.wines[0].recipes[1].link,
+			recipeName: recipeFormatted.wines[0].recipes[0].name,
+			recipeImage: recipeFormatted.wines[0].recipes[0].image,
+			recipeLink: recipeFormatted.wines[0].recipes[0].link,
 
-			wineName2: wineFormatted.wines[0].recipes[2].name,
-			wineImage2: wineFormatted.wines[0].recipes[2].image,
-			wineRecipeLink2: wineFormatted.wines[0].recipes[2].link
+			recipeName1: recipeFormatted.wines[0].recipes[1].name,
+			recipeImage1: recipeFormatted.wines[0].recipes[1].image,
+			recipeLink1: recipeFormatted.wines[0].recipes[1].link,
+
+			recipeName2: recipeFormatted.wines[0].recipes[2].name,
+			recipeImage2: recipeFormatted.wines[0].recipes[2].image,
+			recipeLink2: recipeFormatted.wines[0].recipes[2].link
 
 
 

@@ -22,10 +22,10 @@
 	<div class="wine-menu col-sm-10 col-sm-offset-1">
 		<div class="left-menu col-sm-4">
 			<h4><strong>Find Wine Suggestions</strong></h4><br/>
-			<form action="/beverage">
+			<form action="/color" method="post">
 				<fieldset>
 					<h5>What color wine do you prefer?</h5>
-					<select>
+					<select name="searchColor">
 						<option>Red</option>
 						<option>White</option>
 						<option>Rose</option>          <!-- selected="selected" -->
@@ -36,7 +36,11 @@
 				</fieldset>
 			</form>
 			<br/>
+
+			<div>
 			OR
+			</div>
+
 			<br/>
 			<br/>
 
