@@ -92,7 +92,9 @@ router.post('/color', (req,res)=>{
 	var wineMaxPrice = (req.body.searchPrice);
 	// console.log(wineColor)
 	var snoothColorUrl = snoothBaseUrl + wineKey + ip + '&color='+ wineColor + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc';
-	var snoothColorUrl2 = snoothBaseUrl + wineKey + ip + '&color='+ wineColor + '&&mr=4&mp=1' + '&xp=' + wineMaxPrice;
+	var snoothColorUrl2 = snoothBaseUrl + wineKey + ip + '&color='+ wineColor + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc' + '&xp=' + wineMaxPrice;
+	var snoothVarietyUrl = snoothBaseUrl + wineKey + ip + '&q=' + wineVariety + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc'+ '&xp=' + wineMaxPrice;
+	var snoothVarietyUrl2 = snoothBaseUrl + wineKey + ip + '&q=' + wineVariety + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc'+ '&xp=' + wineMaxPrice;
 	// console.log(snoothColorUrl)
 	// res.json(req.body);
 
@@ -140,7 +142,7 @@ router.post('/varietal', (req,res)=>{
 
 
 
-router.post('/recipes', (req,res)=>{
+router.post('/wine-recipes', (req,res)=>{
 	// req.body is availbale because of the body-parser module
 	// req.body is where POSTED data will live
 	console.log(req.body);	
@@ -163,7 +165,7 @@ router.post('/recipes', (req,res)=>{
 		// console.log(wineFormatted.wines[0].recipes[0].image);
 		// console.log(wineFormatted.wines[0].recipes[0].link);
 		console.log(wineName);
-		res.render('recipes', { 
+		res.render('wine-recipes', { 
 			wineName :req.body.searchString,
 
 			recipeName: recipeFormatted.wines[0].recipes[0].name,
