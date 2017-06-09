@@ -88,32 +88,36 @@ router.post('/color', (req,res)=>{
 	// req.body is availbale because of the body-parser module
 	// req.body is where POSTED data will live
 	console.log(req.body);	
-	var wineColor = (req.body.searchColor)
+	var wineColor = (req.body.searchColor);
+	var wineMaxPrice = (req.body.searchPrice);
 	// console.log(wineColor)
-	var snoothColorUrl = snoothBaseUrl + wineKey + ip + '&color='+ wineColor + '&mr=4&mp=1';
+	var snoothColorUrl = snoothBaseUrl + wineKey + ip + '&color='+ wineColor + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc';
+	var snoothColorUrl2 = snoothBaseUrl + wineKey + ip + '&color='+ wineColor + '&&mr=4&mp=1' + '&xp=' + wineMaxPrice;
 	// console.log(snoothColorUrl)
 	// res.json(req.body);
-	request.get(snoothColorUrl,(error, response, colorData)=>{
-		var colorFormatted = JSON.parse(colorData);
-		console.log(colorFormatted);
-		// res.json(colorFormatted.wines[0].image)
-		// res.json(colorFormatted.wines[0].name)
-		// res.json(colorFormatted.wines[0].price)
-		// res.json(colorFormatted.wines[0].rank)
 
+	if(wineMaxPrice != 'None'){
+		request.get(snoothColorUrl2,(error, response, colorData)=>{
+			var colorFormatted = JSON.parse(colorData);
+			// console.log(colorFormatted);
+			// res.json(colorFormatted);
+			res.render('color', { 
+				wineArray : colorFormatted
 
-		res.render('color', { 
-			wineArray : colorFormatted
-
-
-			// wineImage : colorFormatted.wines[0].image,
-			// wineName : colorFormatted.wines[0].name,
-			// wineVariety: colorFormatted.wines[0].varietal,
-			// winePrice : colorFormatted.wines[0].price,
-			// wineRank : colorFormatted.wines[0].snoothrank
-
+			});
 		});
-	});
+	}else{
+		request.get(snoothColorUrl,(error, response, colorData)=>{
+			var colorFormatted = JSON.parse(colorData);
+			// console.log(colorFormatted);
+			// res.json(colorFormatted);
+			res.render('color', { 
+				wineArray : colorFormatted
+
+			});
+		});
+
+	}
 
 });
 
