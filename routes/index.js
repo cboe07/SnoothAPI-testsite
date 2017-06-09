@@ -53,6 +53,7 @@ router.get('/', function(req, res, next) {
 ////// Snooth
 const snoothBaseUrl = "http://api.snooth.com/wines/";
 const snoothBaseUrl2 = 'http://api.snooth.com/wine/';
+const snoothBaseUrlRating = 'http://api.snooth.com/rate/';
 const wineKey = config.wineKey;
 const ip = '&ip=66.28.234.115';
 
@@ -81,7 +82,7 @@ const ip = '&ip=66.28.234.115';
 // 	});
 
 // });
-'http://api.snooth.com/wines/?akey=8jncs6kpdwlsv2gkd24zqiyadfzhi0b07ybsajsldrssfgpg&ip=75.63.122.172&color=red'
+//'http://api.snooth.com/wines/?akey=8jncs6kpdwlsv2gkd24zqiyadfzhi0b07ybsajsldrssfgpg&ip=75.63.122.172&color=red'
 
 router.post('/color', (req,res)=>{
 	// req.body is availbale because of the body-parser module
@@ -102,16 +103,36 @@ router.post('/color', (req,res)=>{
 
 
 		res.render('color', { 
-			wineImage : colorFormatted.wines[0].image,
-			wineName : colorFormatted.wines[0].name,
-			winePrice : colorFormatted.wines[0].price,
-			wineRank : colorFormatted.wines[0].rank,
+			wineArray : colorFormatted
+
+
+			// wineImage : colorFormatted.wines[0].image,
+			// wineName : colorFormatted.wines[0].name,
+			// wineVariety: colorFormatted.wines[0].varietal,
+			// winePrice : colorFormatted.wines[0].price,
+			// wineRank : colorFormatted.wines[0].snoothrank
 
 		});
 	});
 
 });
 
+router.post('/varietal', (req,res)=>{
+	console.log(req.body);	
+	var wineType = (req.body.searchVariety);
+	var wineVariety = wineType.replace(" ","+");
+	var snoothVarietyUrl = snoothBaseUrl + wineKey + ip + '&q=' + wineVariety;
+	// res.json(req.body);
+	request.get(snoothVarietyUrl,(error, response, varietalData)=>{
+		var varietyFormatted = JSON.parse(varietalData);
+		// res.json(varietyFormatted);
+		res.render('varietal', { 
+			wineArray : varietyFormatted
+			
+		});
+	});
+
+});
 
 
 
