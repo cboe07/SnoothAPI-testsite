@@ -24,23 +24,75 @@
 			<h4><strong>Find Wine Suggestions</strong></h4><br/>
 			<form action="/color" method="post">
 				<fieldset>
+					<h5>What type of beverage do you prefer?</h5>
+					<select name="searchType">
+						<option> </option>
+						<option>Wine</option>
+						<option>Spirits</option>          <!-- selected="selected" -->
+						<option>Table</option>
+						<option>Dessert</option>
+						<option>Sparkling</option>
+						<option>Fruit</option>
+						<option>Cider</option>
+						<option>Sake</option>
+					</select>
+
 					<h5>What color wine do you prefer?</h5>
 					<select name="searchColor">
+						<option> </option>
 						<option>Red</option>
 						<option>White</option>
 						<option>Rose</option>          <!-- selected="selected" -->
 						<option>Amber</option>
 						<option>Clear</option>
 					</select>
-					<h5>Max Price</h5>
-					$<select name="searchPrice">
+
+					<h5>Search by variety: <br/>(i.e "Cabernet", "Pinot Noir", "Merlot", "Malbec", "Zinfandel", etc.)</h5>
+
+					<h5>Min Price: </h5>
+					$<select name="searchMinPrice">
 						<option> </option>
+						<option>10</option>
 						<option>20</option>
 						<option>30</option>
-						<option>50</option>          <!-- selected="selected" -->
+						<option>40</option>
+						<option>50</option> 
+						<option>75</option>         <!-- selected="selected" -->
 						<option>100</option>
+						<option>200</option>
+						<option>500</option>
+						<option>1000</option>
+						<option>2000</option>
 						<option>None</option>
 					</select>
+
+					<h5>Max Price: </h5>
+					$<select name="searchMaxPrice">
+						<option> </option>
+						<option>10</option>
+						<option>20</option>
+						<option>30</option>
+						<option>40</option>
+						<option>50</option> 
+						<option>75</option>         <!-- selected="selected" -->
+						<option>100</option>
+						<option>200</option>
+						<option>500</option>
+						<option>1000</option>
+						<option>2000</option>
+						<option>None</option>
+					</select>
+
+					<h5>Sort Selection By: </h5>
+						<select name="searchSort">
+						<option> </option>
+						<option>Quality &#8679</option>
+						<option>Quality &#8681</option>
+						<option>Price &#8679</option>          <!-- selected="selected" -->
+						<option>Price &#8681</option>
+					</select>
+
+
 					<button type="submit">Find wines</button>
 				</fieldset>
 			</form>
@@ -52,11 +104,11 @@
 
 			<br/>
 
-			<h5>Search by your favorite type of wine <br/>(i.e "Cabernet", "Pinot Noir", "Merlot", "Malbec", "Zinfandel", etc.)</h5>
+			<!-- <h5>Search by your favorite variety of wine <br/>(i.e "Cabernet", "Pinot Noir", "Merlot", "Malbec", "Zinfandel", etc.)</h5>
 			<form id="search-form" action="/varietal" method="post">
 				<input type="text" name="searchVariety"/>
 				<button type="submit">Search</button>
-			</form>
+			</form> -->
 		</div>
 		<div class="right-menu col-sm-5 col-sm-offset-2">
 			<h4><strong>Find Recipe Pairings</strong></h4><br/>

@@ -58,16 +58,6 @@ const wineKey = config.wineKey;
 const ip = '&ip=66.28.234.115';
 
 
-// var wineToSearch = wineName.split(' ').join('+');                             // UNCOMMENT
-
-
-// What color wine do you like? Red, white, rose, amber, clear? Get our preferences?
-// var wineColor = 't='+ colorSelected                                              // UNCOMMENT
-// var snoothTypeUrl = snoothTypeUrl + wineKey + ip + wineColor;					// UNCOMMENT
-
-
-// Found a good wine? Input a particular wine and get recipes
-
 
 // router.get('/beverages', function(req, res, next) {
 // 	request.get(,(error, response, wineData)=>{
@@ -88,24 +78,45 @@ router.post('/color', (req,res)=>{
 	// req.body is availbale because of the body-parser module
 	// req.body is where POSTED data will live
 	console.log(req.body);	
+	var wineType = (req.body.searchType);
 	var wineColor = (req.body.searchColor);
-	var wineMaxPrice = (req.body.searchPrice);
+	var wineKind = (req.body.searchVariety);
+	var wineVariety = wineKind.replace(" ","+");
+	var wine$MinPrice = (req.body.searchMinPrice);
+	var wine$MaxPrice = (req.body.searchMaxPrice);
+	var wineMinPrice = wine$MinPrice.replace("$","");
+	var wineMaxPrice = wine$MaxPrice.replace("$","");
+	var wineSort = (req.body.searchSort)
+
+	
+
 	// console.log(wineColor)
-	var snoothColorUrl = snoothBaseUrl + wineKey + ip + '&color='+ wineColor + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc';
-	var snoothColorUrl2 = snoothBaseUrl + wineKey + ip + '&color='+ wineColor + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc' + '&xp=' + wineMaxPrice;
-	var snoothVarietyUrl = snoothBaseUrl + wineKey + ip + '&q=' + wineVariety + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc'+ '&xp=' + wineMaxPrice;
-	var snoothVarietyUrl2 = snoothBaseUrl + wineKey + ip + '&q=' + wineVariety + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc'+ '&xp=' + wineMaxPrice;
+	// var snoothWineSelectUrl = snoothBaseUrl + wineKey + ip + '&t=' + wineType + '&color=' + wineColor + '&q=' + wineVariety + '&mp=' + wineMinPrice + '&xp=' + wineMaxPrice + '&s=' wineSort;
+	// var snoothWineSelectUrlTest = snoothBaseUrl + wineKey + ip + '&t=' + wineType + '&color=' + wineColor + '&mp=' + wineMinPrice + '&xp=' + wineMaxPrice + '&s=' wineSort;
+	var snoothColorUrl = snoothBaseUrl + wineKey + ip + '&t=' + wineType + '&color='+ wineColor + '&q=' + wineVariety + '&mp=' + wineMinPrice + '&xp=' + wineMaxPrice; 
+	var snoothPriceAscUrl = snoothBaseUrl + wineKey + ip + '&t=' + wineType + '&color='+ wineColor + '&q=' + wineVariety + '&mp=' + wineMinPrice + '&xp=' + wineMaxPrice + '&s=price+asc';
+	var snoothPriceDesUrl = snoothBaseUrl + wineKey + ip + '&t=' + wineType + '&color='+ wineColor + '&q=' + wineVariety + '&mp=' + wineMinPrice + '&xp=' + wineMaxPrice + '&s=price+asc';// var snoothColorUrl2 = snoothBaseUrl + wineKey + ip + '&color='+ wineColor + '&mr=4&mp=1' +'&xp=' + wineMaxPrice;
+	// var snoothVarietyUrl = snoothBaseUrl + wineKey + ip + '&q=' + wineVariety + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc'+ '&xp=' + wineMaxPrice;
+	// var snoothVarietyUrl2 = snoothBaseUrl + wineKey + ip + '&q=' + wineVariety + '&mr=4&mp=1&s=price+desc&qpr=vintage+desc'+ '&xp=' + wineMaxPrice;
 	// console.log(snoothColorUrl)
 	// res.json(req.body);
 
-	if(wineMaxPrice != 'None'){
-		request.get(snoothColorUrl2,(error, response, colorData)=>{
+	if(wineSort == 'Price &#8679'){
+		request.get(snoothPriceAscUrl,(error, response, colorData)=>{
 			var colorFormatted = JSON.parse(colorData);
 			// console.log(colorFormatted);
 			// res.json(colorFormatted);
 			res.render('color', { 
 				wineArray : colorFormatted
-
+			});
+		});
+	}else if(wineSort == 'Price &#8681'){
+		request.get(snoothPriceDesUrl,(error, response, colorData)=>{
+			var colorFormatted = JSON.parse(colorData);
+			// console.log(colorFormatted);
+			// res.json(colorFormatted);
+			res.render('color', { 
+				wineArray : colorFormatted
 			});
 		});
 	}else{
@@ -115,30 +126,67 @@ router.post('/color', (req,res)=>{
 			// res.json(colorFormatted);
 			res.render('color', { 
 				wineArray : colorFormatted
-
 			});
 		});
-
 	}
 
 });
 
-router.post('/varietal', (req,res)=>{
-	console.log(req.body);	
-	var wineType = (req.body.searchVariety);
-	var wineVariety = wineType.replace(" ","+");
-	var snoothVarietyUrl = snoothBaseUrl + wineKey + ip + '&q=' + wineVariety;
-	// res.json(req.body);
-	request.get(snoothVarietyUrl,(error, response, varietalData)=>{
-		var varietyFormatted = JSON.parse(varietalData);
-		// res.json(varietyFormatted);
-		res.render('varietal', { 
-			wineArray : varietyFormatted
-			
-		});
-	});
+	// request.get(snoothColorUrl,(error, response, colorData)=>{
+	// 	var colorFormatted = JSON.parse(colorData);
+	// 	// console.log(colorFormatted);
+	// 	res.json(colorFormatted);
+	// 	// res.render('color', { 
+	// 	// 	wineArray : colorFormatted
+	// 	// });
 
-});
+	// });
+	
+
+	// request.get(snoothWineSelectUrlTest,(error, response, colorData)=>{
+	// 	var colorFormatted = JSON.parse(colorData);
+	// 	console.log(colorFormatted);
+	// 	res.json(colorForatted);
+	// })
+
+	// if(wineMaxPrice != 'None'){
+	// 	request.get(snoothColorUrl2,(error, response, colorData)=>{
+	// 		var colorFormatted = JSON.parse(colorData);
+	// 		// console.log(colorFormatted);
+	// 		// res.json(colorFormatted);
+	// 		res.render('color', { 
+	// 			wineArray : colorFormatted
+
+	// 		});
+	// 	});
+	// }else{
+	// 	request.get(snoothColorUrl,(error, response, colorData)=>{
+	// 		var colorFormatted = JSON.parse(colorData);
+	// 		// console.log(colorFormatted);
+	// 		// res.json(colorFormatted);
+	// 		res.render('color', { 
+	// 			wineArray : colorFormatted
+
+	// 		});
+	// 	});
+
+
+// router.post('/varietal', (req,res)=>{
+// 	console.log(req.body);	
+// 	var wineType = (req.body.searchVariety);
+// 	var wineVariety = wineType.replace(" ","+");
+// 	var snoothVarietyUrl = snoothBaseUrl + wineKey + ip + '&q=' + wineVariety;
+// 	// res.json(req.body);
+// 	request.get(snoothVarietyUrl,(error, response, varietalData)=>{
+// 		var varietyFormatted = JSON.parse(varietalData);
+// 		// res.json(varietyFormatted);
+// 		res.render('varietal', { 
+// 			wineArray : varietyFormatted
+			
+// 		});
+// 	});
+
+// });
 
 
 
